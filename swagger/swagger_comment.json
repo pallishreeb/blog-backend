@@ -1,0 +1,303 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "description": "This is the swagger api documentation for blog apis. ",
+      "version": "1.0.0",
+      "title": "CrozTek Blog API Swagger Doc"
+    },
+    "servers": [{ "url": "dev/api/v1/comment" }],
+    "tags": [
+      {
+        "name": "Comment",
+        "description": "Comment Routes"
+      }
+    ],
+    "schemes": ["http", "https"],
+    "paths": {
+      "/add": {
+        "post": {
+          "tags": ["comment"],
+          "summary": "Add comment on the post.",
+          "description": "",
+          "produces": ["application/json"],
+          "parameters": [
+            { "in" : "header",
+              "name" : "authorization",
+              "required" : "true",
+              "default" : "Bearer <token>"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "required": "true",
+              "schema": {
+                "$ref": "#/definitions/addCommentModel"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "Invalid status value"
+            }
+          }
+        }
+      },
+      "/allcomments": {
+          "get": {
+            "tags": ["comment"],
+            "summary": "Get all comments on a post.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },
+                  {
+                    "in": "query",
+                    "name": "postId",
+                    "required": "true"
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+      },
+      "/edit": {
+          "put": {
+            "tags": ["comment"],
+            "summary": "Edit comment api.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },
+                  {
+                    "in": "body",
+                    "name": "body",
+                    "required": "true",
+                    "schema": {
+                      "$ref": "#/definitions/editCommentModel"
+                    }
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        },
+        "/delete": {
+          "delete": {
+            "tags": ["comment"],
+            "summary": "Delete comment api.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },
+                  {
+                    "in": "query",
+                    "name": "commentId",
+                    "required": "true"
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        },
+        "/reply": {
+          "post": {
+            "tags": ["comment"],
+            "summary": "Add reply on comment API.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },
+                  {
+                    "in": "body",
+                    "name": "body",
+                    "required": "true",
+                    "schema": {
+                      "$ref": "#/definitions/addReplyModel"
+                    }
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        },
+        "/replies": {
+          "get": {
+            "tags": ["comment"],
+            "summary": "get replies on a comment.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },
+                  {
+                    "in": "query",
+                    "name": "commentId",
+                    "required": "true"
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        },
+        "/reply/edit": {
+          "put": {
+            "tags": ["comment"],
+            "summary": "Edit reply api.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },
+                  {
+                    "in": "body",
+                    "name": "body",
+                    "required": "true",
+                    "schema": {
+                      "$ref": "#/definitions/editReplyModel"
+                    }
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        }, 
+        "/reply/delete": {
+          "delete": {
+            "tags": ["comment"],
+            "summary": "Delete reply api.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },
+                  {
+                    "in": "query",
+                    "name": "replyId",
+                    "required": "true"
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        }
+    },
+  
+    "definitions": {
+      "addCommentModel": {
+        "type": "object",
+        "properties": {
+          "postId": {
+            "type": "string"
+          },
+          "comment": {
+            "type": "string"
+          }
+        }
+      },
+      "editCommentModel": {
+        "type": "object",
+        "properties": {
+          "commentId": {
+            "type": "string"
+          },
+          "commentText": {
+            "type": "string"
+          }
+        }
+      },
+      
+      "addReplyModel": {
+        "type": "object",
+        "properties": {
+          "commentId": {
+            "type": "string"
+          },
+          "reply": {
+            "type": "string"
+          }
+        }
+      } ,
+       "editReplyModel": {
+        "type": "object",
+        "properties": {
+          "replyId": {
+            "type": "string"
+          },
+          "replyText": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  

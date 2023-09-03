@@ -1,0 +1,320 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "description": "This is the swagger api documentation for blog apis. ",
+      "version": "1.0.0",
+      "title": "CrozTek Blog API Swagger Doc"
+    },
+    "servers": [{ "url": "dev/api/v1/category" }],
+    "tags": [
+      {
+        "name": "category",
+        "description": "Category Routes"
+      }
+    ],
+    "schemes": ["http", "https"],
+    "paths": {
+      "/add": {
+        "post": {
+          "tags": ["category"],
+          "summary": "Add category API.",
+          "description": "",
+          "produces": ["application/json"],
+          "parameters": [
+            { "in" : "header",
+              "name" : "authorization",
+              "required" : "true",
+              "default" : "Bearer <token>"
+            },
+                {
+                  "in": "body",
+                  "name": "body",
+                  "required": "true",
+                  "schema": {
+                    "$ref": "#/definitions/categoryModel"
+                  }
+                }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "Invalid status value"
+            }
+          }
+        }
+      },
+      "/add/subcategory": {
+          "post": {
+            "tags": ["category"],
+            "summary": "Add sub categories.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },
+                  {
+                    "in": "body",
+                    "name": "body",
+                    "required": "true",
+                    "schema": {
+                      "$ref": "#/definitions/subcategoryModel"
+                    }
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+      },
+      "/": {
+          "get": {
+            "tags": ["category"],
+            "summary": "GET categories.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        },
+        "/subs": {
+          "get": {
+            "tags": ["category"],
+            "summary": "GET subcategories",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        },
+        "/subs/category": {
+          "get": {
+            "tags": ["category"],
+            "summary": "GET subcategories for category.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },
+                  {
+                    "in": "query",
+                    "name": "categoryId",
+                    "required": "true",
+                    "description": "category id"
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        },
+        "/edit": {
+          "put": {
+            "tags": ["category"],
+            "summary": "UPDATE category.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },
+                  {
+                    "in": "body",
+                    "name": "body",
+                    "required": "true",
+                    "schema": {
+                      "$ref": "#/definitions/editCategoryModel"
+                    }
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        },
+        "/edit/sub": {
+          "put": {
+            "tags": ["category"],
+            "summary": "update sub category.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },  {
+                    "in": "body",
+                    "name": "body",
+                    "required": "true",
+                    "schema": {
+                      "$ref": "#/definitions/editSubCategoryModel"
+                    }
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        },
+        "/delete": {
+          "delete": {
+            "tags": ["category"],
+            "summary": "delete category.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  } , {
+                    "in": "query",
+                    "name": "id",
+                    "required": "true"
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        },
+        "/sub/delete": {
+          "delete": {
+            "tags": ["category"],
+            "summary": "delete sub category.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },
+                  {
+                    "in": "query",
+                    "name": "id",
+                    "required": "true"
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        }
+    },
+  
+    "definitions": {
+      "categoryModel": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          }
+        }
+      },
+      "subcategoryModel": {
+        "type": "object",
+        "properties": {
+          "subcategory": {
+            "type": "string"
+          },
+          "categoryId":{
+            "type": "string"
+          }
+        }
+      },
+      "editCategoryModel": {
+        "type": "object",
+        "properties": {
+          "categoryId":{
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          }
+        }
+      },
+      "editSubCategoryModel": {
+        "type": "object",
+        "properties": {
+          "categoryId": {
+            "type": "string"
+          },
+          "subcategoryName":{
+            "type": "string"
+          },
+          "subId":{
+            "type": "string"
+          }
+        }
+        
+      }
+    }
+  }
+  

@@ -1,0 +1,133 @@
+{
+    "success": {
+        "entry": {
+            "_url": "/services/recordings/list",
+            "event_id": "246730915",
+            "channel_id": "1067",
+            "api_version": "v5.7",
+            "authpn": "html5player",
+            "authpt": "ad5565dfgsftr",
+            "format": "json",
+            "region": "mexico",
+            "device_id": "730bd690699c5c405deeb16b5ea0b294",
+            "device_category": "web",
+            "device_model": "html5",
+            "device_type": "html5",
+            "device_manufacturer": "windows",
+            "user_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MjY1Nzk1OTYsImV4cCI6MTUzMTc2MzU5NiwidXNyIjp7InVzZXJfaWQiOiIyMTc3OTk5NyIsInVzZXJfdHlwZSI6IkNNWE5PVklQIiwidXNlcm5hbWUiOiJqYmVybW9sZW5AZ21haWwuY29tIiwiZW1haWwiOiJqYmVybW9sZW5AZ21haWwuY29tIiwiZmlyc3RuYW1lIjoiSnVsaWFuIiwibGFzdG5hbWUiOiJCZXJtb2xlbiIsImNvdW50cnlfY29kZSI6Ik1YIiwicmVnaW9uIjoibWV4aWNvIiwiYWNjZXB0ZWRfdGVybXMiOjF9fQ.mT6acAl-MaHdcFJImizmnrIyLV6ezzgLCa8UJPQNsPQ"
+        },
+        "status": 200,
+        "response": {
+            "recordings": [{
+                    "record_id": 98600264133889000,
+                    "provider_id": 1,
+                    "recorder_id": 2,
+                    "pack_id": 69,
+                    "date": "2018-06-06T18:04:23Z",
+                    "ingested": 0,
+                    "status": "recording",
+                    "assets": {},
+                    "programme_id": "6a19051f5b21",
+                    "actions": {
+                        "delete": "https://mfwkweb-api-test.clarovideo.net/services/recordings/delete?user_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MjY1Nzk1OTYsImV4cCI6MTUzMTc2MzU5NiwidXNyIjp7InVzZXJfaWQiOiIyMTc3OTk5NyIsInVzZXJfdHlwZSI6IkNNWE5PVklQIiwidXNlcm5hbWUiOiJqYmVybW9sZW5AZ21haWwuY29tIiwiZW1haWwiOiJqYmVybW9sZW5AZ21haWwuY29tIiwiZmlyc3RuYW1lIjoiSnVsaWFuIiwibGFzdG5hbWUiOiJCZXJtb2xlbiIsImNvdW50cnlfY29kZSI6Ik1YIiwicmVnaW9uIjoibWV4aWNvIiwiYWNjZXB0ZWRfdGVybXMiOjF9fQ.mT6acAl-MaHdcFJImizmnrIyLV6ezzgLCa8UJPQNsPQ®ion=mexico&api_version=v5.7&authpn=html5player&authpt=ad5565dfgsftr&device_category=web&device_manufacturer=windows&device_model=html5&device_type=html5&device_id=730bd690699c5c405deeb16b5ea0b294&record_id=98600264133889000&programme_id=6a19051f5b21"
+                    },
+                    "channel": {
+                        "id": 986,
+                        "image": "https://testcvcdn6-a.akamaihd.net/EPG/986/6680507c8377362be96a568062334560_v-168x96.jpg?size=168x96",
+                        "group_id": 743607,
+                        "content_id": 0,
+                        "name": "New Girl",
+                        "liveref": "foxmxhd",
+                        "event": {
+                            "id": 264133889,
+                            "description": "Después de una mala ruptura, Jess, una joven poco convencional, se muda a un apartamento con tres hombres solteros. Aunque consideran que su comportamiento es muy inusual, los hombres la apoyan la mayor parte del tiempo.",
+                            "date_begin": 1528344000,
+                            "date_end": 1528347180,
+                            "date_last_check": 1528319062,
+                            "duration": 3180,
+                            "language": 1,
+                            "group_id": 743607,
+                            "parental_rating": null,
+                            "name": "New Girl",
+                            "group_rel": null,
+                            "ext_ncont_id": "208282164503",
+                            "ext_nevt_id": "6a19051f5b21",
+                            "ext_original_name": "New Girl",
+                            "ext_ep_original_name": null,
+                            "ext_series_id": 208282124493,
+                            "ext_episode_id": 10,
+                            "ext_language": 1,
+                            "ext_serie_short_desc": null,
+                            "ext_serie_desc": null,
+                            "ext_startover": "1",
+                            "ext_recordable": "1",
+                            "ext_eventimage_name": "https://testcvcdn6-a.akamaihd.net/EPG/986/6680507c8377362be96a568062334560_v-168x96.jpg?size=168x96",
+                            "ext_season_id": 10
+                        }
+                    }
+                },
+                {
+                    "record_id": 98600264133883000,
+                    "provider_id": 1,
+                    "recorder_id": 2,
+                    "pack_id": 69,
+                    "date": "2018-06-06T18:05:53Z",
+                    "ingested": 0,
+                    "status": "recording",
+                    "assets": {},
+                    "programme_id": "c79105dcb9af",
+                    "actions": {
+                        "delete": "https://mfwkweb-api-test.clarovideo.net/services/recordings/delete?user_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MjY1Nzk1OTYsImV4cCI6MTUzMTc2MzU5NiwidXNyIjp7InVzZXJfaWQiOiIyMTc3OTk5NyIsInVzZXJfdHlwZSI6IkNNWE5PVklQIiwidXNlcm5hbWUiOiJqYmVybW9sZW5AZ21haWwuY29tIiwiZW1haWwiOiJqYmVybW9sZW5AZ21haWwuY29tIiwiZmlyc3RuYW1lIjoiSnVsaWFuIiwibGFzdG5hbWUiOiJCZXJtb2xlbiIsImNvdW50cnlfY29kZSI6Ik1YIiwicmVnaW9uIjoibWV4aWNvIiwiYWNjZXB0ZWRfdGVybXMiOjF9fQ.mT6acAl-MaHdcFJImizmnrIyLV6ezzgLCa8UJPQNsPQ®ion=mexico&api_version=v5.7&authpn=html5player&authpt=ad5565dfgsftr&device_category=web&device_manufacturer=windows&device_model=html5&device_type=html5&device_id=730bd690699c5c405deeb16b5ea0b294&record_id=98600264133883000&programme_id=c79105dcb9af"
+                    },
+                    "channel": {
+                        "id": 986,
+                        "image": "https://testcvcdn6-a.akamaihd.net/EPG/986/60e33a1191cea54e71fffc809621379a_v-168x96.jpg?size=168x96",
+                        "group_id": 743607,
+                        "content_id": 0,
+                        "name": "Futurama",
+                        "liveref": "foxmxhd",
+                        "event": {
+                            "id": 264133883,
+                            "description": "T9 -Ep.10. El Profesor está muy consternado cuando sus padres regresan del retiro virtual a bordo del Estrella de la Casi Muerte.",
+                            "date_begin": 1528333200,
+                            "date_end": 1528335000,
+                            "date_last_check": 1528319153,
+                            "duration": 1800,
+                            "language": 1,
+                            "group_id": 743607,
+                            "parental_rating": null,
+                            "name": "Futurama",
+                            "group_rel": null,
+                            "ext_ncont_id": "961325732548",
+                            "ext_nevt_id": "c79105dcb9af",
+                            "ext_original_name": "Futurama",
+                            "ext_ep_original_name": null,
+                            "ext_series_id": 961325723538,
+                            "ext_episode_id": 10,
+                            "ext_language": 1,
+                            "ext_serie_short_desc": null,
+                            "ext_serie_desc": null,
+                            "ext_startover": "1",
+                            "ext_recordable": "1",
+                            "ext_eventimage_name": "https://testcvcdn6-a.akamaihd.net/EPG/986/60e33a1191cea54e71fffc809621379a_v-168x96.jpg?size=168x96",
+                            "ext_season_id": 10
+                        }
+                    }
+                }
+            ],
+            "series": [],
+            "time_used": {
+                "69": 447
+            },
+            "page": 1,
+            "pages": 5,
+            "limit": 25,
+            "totalRecords": 35,
+            "paged": {
+                "previous": null,
+                "next": "https://mfwkweb-api-test.clarovideo.net/services/recordings/list?event_id=246730915&channel_id=1067&api_version=v5.7&authpn=html5player&authpt=ad5565dfgsftr&format=json®ion=mexico&device_id=730bd690699c5c405deeb16b5ea0b294&device_category=web&device_model=html5&device_type=html5&device_manufacturer=windows&user_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MjY1Nzk1OTYsImV4cCI6MTUzMTc2MzU5NiwidXNyIjp7InVzZXJfaWQiOiIyMTc3OTk5NyIsInVzZXJfdHlwZSI6IkNNWE5PVklQIiwidXNlcm5hbWUiOiJqYmVybW9sZW5AZ21haWwuY29tIiwiZW1haWwiOiJqYmVybW9sZW5AZ21haWwuY29tIiwiZmlyc3RuYW1lIjoiSnVsaWFuIiwibGFzdG5hbWUiOiJCZXJtb2xlbiIsImNvdW50cnlfY29kZSI6Ik1YIiwicmVnaW9uIjoibWV4aWNvIiwiYWNjZXB0ZWRfdGVybXMiOjF9fQ.mT6acAl-MaHdcFJImizmnrIyLV6ezzgLCa8UJPQNsPQ&page=2&limit=2"
+            }
+
+        }
+    }
+}

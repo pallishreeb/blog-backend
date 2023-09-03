@@ -1,0 +1,329 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "This is the swagger api documentation for blog apis. ",
+    "version": "1.0.0",
+    "title": "CrozTek Blog API Swagger Doc"
+  },
+  "servers": [{ "url": "http://localhost:8000/dev/api/v1/user"}],
+  "tags": [
+    {
+      "name": "User"
+    }
+  ],
+  "schemes": ["http", "https"],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": ["user"],
+        "summary": "User registration API.",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+              {
+                "in": "body",
+                "name": "body",
+                "required": "true",
+                "schema": {
+                  "$ref": "#/definitions/userSignupModel"
+                }
+              }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/verifyEmail": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Verify email after registration API.",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+              {
+                "in": "body",
+                "name": "body",
+                "required": "true",
+                "schema": {
+                  "$ref": "#/definitions/verifyEmail"
+                }
+              }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/login": {
+        "post": {
+          "tags": ["user"],
+          "summary": "User Login API.",
+          "description": "",
+          "produces": ["application/json"],
+          "parameters": [
+            
+                {
+                  "in": "body",
+                  "name": "body",
+                  "required": "true",
+                  "schema": {
+                    "$ref": "#/definitions/userLoginModel"
+                  }
+                }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "Invalid status value"
+            }
+          }
+        }
+    },
+    "/sendOTP": {
+        "post": {
+          "tags": ["user"],
+          "summary": "Send OTP to mail API.",
+          "description": "",
+          "produces": ["application/json"],
+          "parameters": [
+                {
+                  "in": "body",
+                  "name": "body",
+                  "required": "true",
+                  "schema": {
+                    "$ref": "#/definitions/sendOtpModel"
+                  }
+                }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "Invalid status value"
+            }
+          }
+        }
+      },
+      "/verifyOTP": {
+        "post": {
+          "tags": ["user"],
+          "summary": "Verify Otp API.",
+          "description": "",
+          "produces": ["application/json"],
+          "parameters": [
+                {
+                  "in": "body",
+                  "name": "body",
+                  "required": "true",
+                  "schema": {
+                    "$ref": "#/definitions/otpVerifyModel"
+                  }
+                }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "Invalid status value"
+            }
+          }
+        }
+      },
+      "/updatePassword": {
+        "put": {
+          "tags": ["user"],
+          "summary": "User update password API.",
+          "description": "",
+          "produces": ["application/json"],
+          "parameters": [
+              { "in" : "header",
+                  "name" : "authorization",
+                  "required" : "true",
+                  "default" : "Bearer <token>"
+                },
+                {
+                  "in": "body",
+                  "name": "body",
+                  "required": "true",
+                  "schema": {
+                    "$ref": "#/definitions/updatePasswordModel"
+                  }
+                }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "Invalid status value"
+            }
+          }
+        }
+      },
+      "/editDetails": {
+        "put": {
+          "tags": ["user"],
+          "summary": "User details update API.",
+          "description": "",
+          "produces": ["application/json"],
+          "parameters": [
+              { "in" : "header",
+                  "name" : "authorization",
+                  "required" : "true",
+                  "default" : "Bearer <token>"
+                },
+                {
+                  "in": "body",
+                  "required": "true",
+                  "schema": {
+                    "$ref": "#/definitions/userEditModel"
+                  }
+                }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "Invalid status value"
+            }
+          }
+        }
+      },
+      "/singleUser": {
+        "get": {
+          "tags": ["user"],
+          "summary": "User Details API.",
+          "description": "",
+          "produces": ["application/json"],
+          "parameters": [
+              { "in" : "header",
+                  "name" : "authorization",
+                  "required" : "true",
+                  "default" : "Bearer <token>"
+                }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "Invalid status value"
+            }
+          }
+        }
+      }
+  },
+
+  "definitions": {
+    "userSignupModel": { 
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "number"
+        },
+        "gender": {
+          "type": "string"
+        }
+      }
+    },
+    "verifyEmail":{
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "verificationCode": {
+          "type": "string"
+        }
+      }
+    },
+    "userLoginModel": { 
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "sendOtpModel": { 
+    "type": "object",
+    "properties": {
+      "email": {
+        "type": "string"
+      }
+    }
+  },
+  "otpVerifyModel": { 
+    "type": "object",
+    "properties": {
+     
+      "email": {
+        "type": "string"
+      },
+      "otp": {
+        "type": "string"
+      },
+      "newPassword ": {
+        "type": "string"
+      }
+    }
+  },
+  "updatePasswordModel":{
+    "type": "object",
+    "properties": {
+      "oldPassword": {
+        "type": "string"
+      },
+      "newPassword": {
+        "type": "string"
+      }
+    }
+  },
+  "userEditModel":{
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "gender": {
+        "type": "string"
+      },
+      "phoneNumber": {
+        "type": "string"
+      },
+      "dob": {
+        "type": "string"
+      }
+    }
+  }
+  
+}

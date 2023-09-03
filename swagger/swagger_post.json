@@ -1,0 +1,412 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the swagger api documentation for blog apis. ",
+    "version": "1.0.0",
+    "title": "CrozTek Blog API Swagger Doc"
+  },
+  "servers": [{ "url": "dev/api/v1/post" }],
+  "tags": [
+    {
+      "name": "Post",
+      "description": "Post Routes"
+    }
+  ],
+  "schemes": ["http", "https"],
+  "paths": {
+    "/add": {
+      "post": {
+        "tags": ["post"],
+        "summary": "Create a blog post API.",
+        "description": "",
+        "produces": ["application/json","multipart/form-data"],
+        "parameters": [
+          { "in" : "header",
+            "name" : "authorization",
+            "required" : "true",
+            "default" : "Bearer <token>"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": "true",
+            "schema": {
+              "$ref": "#/definitions/addPostModel"
+            }
+          },
+          {
+            "in": "formData",
+            "name":"images",
+            "type": "file",
+            "required": "true",
+            "description": "The image to upload."
+
+          },
+          {
+            "in": "formData",
+            "name": "docs",
+            "required": "true",
+            "type":"file",
+            "description": "The file to upload."
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/singlePost": {
+      "get": {
+        "tags": ["post"],
+        "summary": "Get single post.",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": "true",
+            "default": "Bearer <token>"
+          },
+          {
+            "in": "query",
+            "name": "postId",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/allPost": {
+      "get": {
+        "tags": ["post"],
+        "summary": "Get all posts API.",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": "true",
+            "default": "Bearer <token>"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/edit": {
+      "put": {
+        "tags": ["post"],
+        "summary": "Post edit  API.",
+        "description": "",
+        " Content-Type": "multipart/form-data",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": "true",
+            "default": "Bearer <token>"
+          },
+          {
+            "in": "query",
+            "name": "postId",
+            "required": "true"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": "true",
+            "schema": {
+              "$ref": "#/definitions/editPostModel"
+            }
+          },
+          {
+            "in": "formData",
+            "name":"images",
+            "type": "file",
+            "dataType":"file",
+            "description": "The image to upload."
+
+          },
+          {
+            "in": "formData",
+            "name": "docs",
+            "required": "true",
+            "type":"file",
+            "description": "The file to upload."
+
+          }
+        ],
+        "responses": {
+         
+
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/delete": {
+      "delete": {
+        "tags": ["post"],
+        "summary": "Delete post api.",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": "true",
+            "default": "Bearer <token>"
+          },
+          {
+            "in": "query",
+            "name": "postId",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/most-viewed": {
+      "get": {
+        "tags": ["post"],
+        "summary": "Get top most viewed posts.",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": "true",
+            "default": "Bearer <token>"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/related-post": {
+      "get": {
+        "tags": ["post"],
+        "summary": "Get  top 5 related posts.",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": "true",
+            "default": "Bearer <token>"
+          },
+          {
+            "in": "query",
+            "name": "postId",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/save-post": {
+      "get": {
+        "tags": ["post"],
+        "summary": "Save a Post .",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": "true",
+            "default": "Bearer <token>"
+          },
+          {
+            "in": "query",
+            "name": "postId",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/filterByCategory": {
+      "get": {
+        "tags": ["post"],
+        "summary": "filter all posts by category.",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": "true",
+            "default": "Bearer <token>"
+          },
+          {
+            "in": "query",
+            "name": "categoryId",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/savedpost": {
+      "get": {
+        "tags": ["post"],
+        "summary": "Get All saved post for an user.",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": "true",
+            "default": "Bearer <token>"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "addPostModel": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "categoryId": {
+          "type": "string"
+        },
+        "subcategoryId": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "websitesLink": {
+          "type": "string"
+        },
+        "youtubeLink": {
+          "type": "string"
+        }
+      }
+    },
+    "editPostModel": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "categoryId": {
+          "type": "string"
+        },
+        "subcategoryId": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "websitesLink": {
+          "type": "string"
+        },
+        "youtubeLink": {
+          "type": "string"
+        }
+      }
+    },
+    "fileModel":{
+      "type": "object",
+      "properties": {
+        "images": {
+          "type": "string",
+          "format": "binary"
+          
+        },
+        "docs": {
+          "type": "file"
+        }
+      }
+    }
+  }
+}

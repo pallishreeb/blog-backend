@@ -1,0 +1,121 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "description": "This is the swagger api documentation for blog apis. ",
+      "version": "1.0.0",
+      "title": "CrozTek Blog API Swagger Doc"
+    },
+    "servers": [{ "url": "dev/api/v1/notification" }],
+    "tags": [
+      {
+        "name": "Notification",
+        "description": "Notification Routes"
+      }
+    ],
+    "schemes": ["http", "https"],
+    "paths": {
+      "/add": {
+        "post": {
+          "tags": ["notification"],
+          "summary": "create notification.",
+          "description": "",
+          "produces": ["application/json"],
+          "parameters": [
+            { "in" : "header",
+              "name" : "authorization",
+              "required" : "true",
+              "default" : "Bearer <token>"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "required": "true",
+              "schema": {
+                "$ref": "#/definitions/addCommentModel"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "Invalid status value"
+            }
+          }
+        }
+      },
+      "/": {
+          "get": {
+            "tags": ["notification"],
+            "summary": "Notification for user.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+      },
+        "/delete": {
+          "delete": {
+            "tags": ["notification"],
+            "summary": "Delete Notification api.",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+                { "in" : "header",
+                    "name" : "authorization",
+                    "required" : "true",
+                    "default" : "Bearer <token>"
+                  },
+                  {
+                    "in": "query",
+                    "name": "notificationId",
+                    "required": "true"
+                  }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "Invalid status value"
+              }
+            }
+          }
+        }
+    },
+  
+    "definitions": {
+      "addCommentModel": {
+        "type": "object",
+        "postId": {
+          "postId": {
+            "type": "string"
+          },
+          "commentId": {
+            "type": "string"
+          },
+          "notificationId": {
+            "type": "string"
+          },
+          "replyId": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  
