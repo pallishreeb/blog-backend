@@ -17,6 +17,7 @@ const {
   removeSavedPost,
 } = require("../controllers/post");
 
+const {getStatitics} = require('../controllers/dashboard')
 //isAdmin middleware
 const isAdmin = require("../middleware/auth")
 
@@ -80,5 +81,8 @@ router.get("/savedpost", passport.authenticate("jwt", { session: false }), getAl
 //
 router.delete("/remove-saved-post", passport.authenticate("jwt", { session: false }),
   removeSavedPost);
+  
+router.get('/statistics',passport.authenticate("jwt", { session: false }),getStatitics)
+
 
 module.exports = router;
