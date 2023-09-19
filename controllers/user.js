@@ -8,10 +8,12 @@ const sendMail = require("../utils/sendMail");
 
 //Models
 const User = require("../models/userModel");
+const Notification = require("../models/notification")
+const SavedPost = require("../models/saved")
+const Comment = require("../models/commentModel")
 
 //Config
 const keys = require("../config/keys");
-
 
 module.exports = {
   userRegister: async (req, res) => {
@@ -81,6 +83,7 @@ module.exports = {
           .json({ success: false, message: "Invalid verification code" });
       }
       user.isEmailVerified = true;
+      user.active = true;
       await user.save();
       return res
         .status(200)
@@ -104,6 +107,10 @@ module.exports = {
       }
       if (!user.isEmailVerified) {
         errors.message = "Email is not verified please verify your email";
+        return res.status(400).json(errors);
+      }
+      if (!user.active) {
+        errors.message = "Your account is deactivated or Block.Please contact Admin.";
         return res.status(400).json(errors);
       }
       const isCorrect = await bcrypt.compare(password, user.password);
@@ -134,7 +141,6 @@ module.exports = {
         .json({ message: `Error in userLogin ${err.message}` });
     }
   },
-
   sendOTP: async (req, res) => {
     try {
       const { email } = req.body;
@@ -219,7 +225,6 @@ module.exports = {
       });
     }
   },
-
   getUser: async (req, res) => {
     try {
       const { _id } = req.user;
@@ -313,12 +318,21 @@ module.exports = {
   deleteUser: async (req, res) => {
     try {
       let userId = req.query.userId
-      const user = await User.findByIdAndDelete(ObjectId(userId));
+      const user = await User.findByIdAndRemove({ _id: ObjectId(userId) });
       if (!user) {
         return res
           .status(404)
           .json({ success: false, message: "No User found with this id", response: {} });
       }
+      // Delete user's notifications
+      await Notification.deleteMany({ postedTo: ObjectId(userId) });
+      await Notification.deleteMany({ createdBy: ObjectId(userId) });
+      // Delete user's saved posts
+      await SavedPost.deleteMany({ userId: ObjectId(userId) });
+
+      //delete all the comments made by user
+      await Comment.deleteMany({ createdBy: ObjectId(userId) })
+
       return res
         .status(200)
         .json({ success: true, message: "User deleted", response: user });
@@ -330,4 +344,46 @@ module.exports = {
       });
     }
   },
+  deactiveOrBlockUser: async (req, res) => {
+    try {
+      const userId = req.query.userId;
+      const user = await User.findById(userId);
+
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      // Set the user's 'active' field to false
+      user.active = false;
+
+      // Save the updated user
+      await user.save();
+
+      res.status(200).json({ message: 'User deactivated successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  },
+  activeOrUnblockUser: async (req, res) => {
+    try {
+      const userId = req.query.userId;
+      const user = await User.findById(userId);
+
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      // Set the user's 'active' field to true
+      user.active = true;
+
+      // Save the updated user
+      await user.save();
+
+      res.status(200).json({ message: 'User activated successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
 };

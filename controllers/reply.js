@@ -63,7 +63,8 @@ module.exports = {
       await user.save()
 
 
-      const replyToReturn = await Reply.findById(newReply._id).populate('createdBy');
+      const replyToReturn = await Reply.findById(newReply._id)
+        .sort({ createdAt: -1 }).populate('createdBy');
 
       return res
         .status(200)
@@ -86,7 +87,6 @@ module.exports = {
   //delete a reply
   deleteReply: async (req, res) => {
     try {
-      const { _id } = req.user;
       const { replyId } = req.query;
 
       const reply = await Reply.findByIdAndDelete({ _id: ObjectId(replyId) });
@@ -96,6 +96,7 @@ module.exports = {
           .json({ success: false, message: "Invalid id", response: {} });
       }
 
+      await Notification.remove({ replyId: ObjectId(replyId) })
 
       return res
         .status(200)

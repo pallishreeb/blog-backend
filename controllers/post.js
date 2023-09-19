@@ -1,6 +1,8 @@
 const Post = require("../models/postModel");
 const Comment = require("../models/commentModel")
 const Saved = require("../models/saved")
+const Notification = require("../models/notification")
+// const Reply = require("../models/replyModel")
 const { ObjectId } = require("mongodb");
 const { s3, getSignedUrl, deleteFileFromS3 } = require("../utils/s3");
 const { v4: uuidv4 } = require("uuid");
@@ -8,8 +10,6 @@ const { v4: uuidv4 } = require("uuid");
 
 module.exports = {
   createPost: async (req, res) => {
-    // console.log("headers",req.headers);
-    // console.log("body",req.body);
     try {
       const { _id } = req.user;
       // let images = [];
@@ -51,7 +51,7 @@ module.exports = {
         createdBy: _id,
       });
       await post.save();
-      console.log(post);
+      // console.log("post created-----",post);
       return res
         .status(200)
         .json({
@@ -75,7 +75,7 @@ module.exports = {
       const { postId } = req.query;
       let id = postId
       const post = await Post.findById(id).populate("category").populate("subcategory");
-
+      const relatedPosts = await Post.find({ category: ObjectId(post.category) })
       post.views = post.views + 1;
       post.save()
       if (!post) {
@@ -89,7 +89,7 @@ module.exports = {
       }
       return res
         .status(200)
-        .json({ success: true, message: "Post found", response: post });
+        .json({ success: true, message: "Post found", response: post, relatedPosts });
     } catch (error) {
       return res
         .status(500)
@@ -127,7 +127,7 @@ module.exports = {
   updatePost: async (req, res) => {
     try {
       const { postId } = req.query;
-      console.log("data", req.body);
+      // console.log("data", req.body);
 
       // let images = [];
       // let docs = [];
@@ -231,37 +231,39 @@ module.exports = {
             response: {},
           });
       }
-      for (const element of post.images) {
-        deleteFileFromS3({ key: element.key }, (d) => {
-          if (d.success === false) {
-            console.log("Error occured in delete file from s3", d.error);
-          } else {
-            console.log("Successfully delted from s3 bucket");
-          }
-        });
-      }
-      for (var i = 0; i < post.docs.length; i++) {
-        deleteFileFromS3({ key: post.images[i].key }, (data) => {
-          if (data.success === false) {
-            console.log("Error occured in delete file from s3", data.error);
-          } else {
-            console.log("Successfully delted from s3 bucket");
-          }
-        });
-      }
+      // for (const element of post.images) {
+      //   deleteFileFromS3({ key: element.key }, (d) => {
+      //     if (d.success === false) {
+      //       console.log("Error occured in delete file from s3", d.error);
+      //     } else {
+      //       console.log("Successfully delted from s3 bucket");
+      //     }
+      //   });
+      // }
+      // for (var i = 0; i < post.docs.length; i++) {
+      //   deleteFileFromS3({ key: post.images[i].key }, (data) => {
+      //     if (data.success === false) {
+      //       console.log("Error occured in delete file from s3", data.error);
+      //     } else {
+      //       console.log("Successfully delted from s3 bucket");
+      //     }
+      //   });
+      // }
 
       //delete all the comments for the post
-      await Comment.findOneAndDelete({ postId })
+      await Comment.deleteMany({ postId: ObjectId(postId) })
 
       //delete from user's saved post 
-      await Saved.findByIdAndDelete({ postId: ObjectId(postId) });
+      await Saved.deleteMany({ postId: ObjectId(postId) });
 
+      //delete all notification of that post
+      await Notification.deleteMany({ postId: ObjectId(postId) })
 
       return res
         .status(200)
         .json({
           success: true,
-          messsage: "Post Deleted successfully",
+          messsage: "Post Removed successfully",
           response: post,
         });
     } catch (error) {
@@ -300,7 +302,7 @@ module.exports = {
     try {
       const { postId } = req.query
       const post = await Post.findById({ _id: ObjectId(postId) });
-      let relatedPosts = await Post.find({ category: ObjectId(post.category) })
+      const relatedPosts = await Post.find({ category: ObjectId(post.category) })
 
       return res
         .status(200)
@@ -318,11 +320,6 @@ module.exports = {
           error: error.message,
         });
     }
-
-
-
-
-
   },
 
   savePost: async (req, res) => {
@@ -362,8 +359,6 @@ module.exports = {
 
       const { categoryId } = req.query;
       const posts = await Post.find({ category: ObjectId(categoryId) });
-
-
       return res.status(200).json({
         success: false,
         message: "Fetched successfully",

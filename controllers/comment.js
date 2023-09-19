@@ -15,6 +15,7 @@ module.exports = {
         .populate('createdBy', 'name _id');
 
       const totalComments = await Comment.find({ postId })
+        .sort({ createdAt: -1 })
       return res
         .status(200)
         .json({
@@ -72,7 +73,7 @@ module.exports = {
           .json({ success: false, message: "Invalid id", response: {} });
       }
       //delete all the replies of that comment 
-      await Reply.findOneAndDelete({ commentId: ObjectId(commentId) })
+      await Reply.deleteMany({ commentId: ObjectId(commentId) })
 
       return res
         .status(200)
