@@ -10,8 +10,8 @@ const userSchema = new Schema({
         max: 10
     },
     userId: {
-        type: Number,
-        default: 0
+        type: String,
+        unique: true,
     },
     email: {
         type: String,
@@ -56,6 +56,10 @@ const userSchema = new Schema({
     active: {
         type: Boolean,
         default: true
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
     createdAt: {
         type: Date,

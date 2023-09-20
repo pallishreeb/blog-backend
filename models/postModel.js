@@ -5,13 +5,17 @@ const postSchema = new Schema({
   title: {
     type: String,
   },
+  postId: {
+    type: String,
+    unique: true,
+  },
   text: {
     type: String,
   },
   images: [],
   docs: [],
-  websitesLink:{
-    type:String
+  websitesLink: {
+    type: String
   },
   category: {
     type: Schema.Types.ObjectId,

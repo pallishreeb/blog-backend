@@ -8,16 +8,16 @@ const passport = require("passport");
 const morgan = require("morgan");
 const connectDb = require("./config/dbConfig")
 
+// Configure CORS to allow requests from any origin
+const corsOptions = {
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Allow cookies and sessions
+};
 
+app.use(cors(corsOptions));
 //middlewares enable
 app.use(hpp());  // HTTP parameter pollution (HPP)
-app.use(function (_, res, next) {
-    res.set('X-Frame-Options', 'SAMEORIGIN');
-    res.set('Content-Security-Policy', "frame-ancestors 'none'");
-    res.set('X-Content-Type-Options', 'nosniff');
-    next();
-});
-app.use(cors()) //cross origin allow
 app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));

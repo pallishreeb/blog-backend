@@ -1,41 +1,16 @@
+const { ObjectId } = require("mongodb");
 const Post = require("../models/postModel");
 const Comment = require("../models/commentModel")
 const Saved = require("../models/saved")
 const Notification = require("../models/notification")
 // const Reply = require("../models/replyModel")
-const { ObjectId } = require("mongodb");
-const { s3, getSignedUrl, deleteFileFromS3 } = require("../utils/s3");
-const { v4: uuidv4 } = require("uuid");
+
 
 
 module.exports = {
   createPost: async (req, res) => {
     try {
       const { _id } = req.user;
-      // let images = [];
-      // let docs = [];
-      // if (req.files.images && req.files.images.length > 0) {
-      //   for (const element of req.files.images) {
-      //     let url = getSignedUrl(element.key);
-      //     images.push({
-      //       id: uuidv4(),
-      //       originalname: element.originalname,
-      //       url: url,
-      //       key: element.key,
-      //     });
-      //   }
-      // }
-      // if (req.files.docs && req.files.docs.length > 0) {
-      //   for (const element of req.files.docs) {
-      //     let url = getSignedUrl(element.key);
-      //     docs.push({
-      //       id: uuidv4(),
-      //       originalname: element.originalname,
-      //       url: url,
-      //       key: element.key,
-      //     });
-      //   }
-      // }
       const { title, text, websitesLink, brand, youtubeLink, model, categoryId, subcategoryId, images } = req.body;
       const post = await new Post({
         title,
@@ -101,7 +76,6 @@ module.exports = {
     }
   },
   getPosts: async (req, res) => {
-
     try {
       const posts = await Post.find({})
         .sort({ createdAt: -1 })
@@ -231,24 +205,6 @@ module.exports = {
             response: {},
           });
       }
-      // for (const element of post.images) {
-      //   deleteFileFromS3({ key: element.key }, (d) => {
-      //     if (d.success === false) {
-      //       console.log("Error occured in delete file from s3", d.error);
-      //     } else {
-      //       console.log("Successfully delted from s3 bucket");
-      //     }
-      //   });
-      // }
-      // for (var i = 0; i < post.docs.length; i++) {
-      //   deleteFileFromS3({ key: post.images[i].key }, (data) => {
-      //     if (data.success === false) {
-      //       console.log("Error occured in delete file from s3", data.error);
-      //     } else {
-      //       console.log("Successfully delted from s3 bucket");
-      //     }
-      //   });
-      // }
 
       //delete all the comments for the post
       await Comment.deleteMany({ postId: ObjectId(postId) })
@@ -296,7 +252,6 @@ module.exports = {
         });
     }
   },
-
   relatedPost: async (req, res) => {
     //most top 5 related posts similar to category , subcategory and title description
     try {
@@ -321,7 +276,6 @@ module.exports = {
         });
     }
   },
-
   savePost: async (req, res) => {
     //save the post
     try {
@@ -353,7 +307,6 @@ module.exports = {
       });
     }
   },
-
   filterByCategory: async (req, res) => {
     try {
 
@@ -392,7 +345,6 @@ module.exports = {
       });
     }
   },
-
   removeSavedPost: async (req, res) => {
     try {
       const { savedPostId } = req.query;

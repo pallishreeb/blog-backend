@@ -7,8 +7,4 @@ module.exports = {
     S3_Bucket_Name: '',
     EMAIL_FROM: 'shreelearning.tech@gmail.com',
     PASSWORD: 'psijctsbpfropysj'
-
-    // mongodb+ srv://croztek:<password>@cluster0.ax5jgys.mongodb.net/?retryWrites=true&w=majority
-
-
 };

@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
-const { getSignedUrl } = require("../utils/s3");
+
 
 //SEND GRID
 const sendMail = require("../utils/sendMail");
@@ -14,6 +14,7 @@ const Comment = require("../models/commentModel")
 
 //Config
 const keys = require("../config/keys");
+const generateNextUserId = require("../utils/generateIds")
 
 module.exports = {
   userRegister: async (req, res) => {
@@ -32,26 +33,31 @@ module.exports = {
       //GENERATE OTP
       const OTP = Math.floor(100000 + Math.random() * 900000);
       const body = `Hi Here is OTP ${OTP} for email verification`;
-
-      const newUser = await new User({
-        name,
-        userId: "",
-        email,
-        password: hashedPassword,
-        phoneNumber,
-        // gender: gender,
-        otp: OTP,
-        isEmailVerified: false,
-      });
-      await newUser.save();
-
-      //SEND MAIL TO USER FOR EMAIL VERIFICATION
-      await sendMail(email, "EMail verification", body);
-      //remove otp after 2 min
-      setTimeout(async () => {
-        newUser.otp = -1
-        await newUser.save()
-      }, 200000)
+      //generate unique Id for user
+      generateNextUserId('user')
+        .then(async (nextUserId) => {
+          console.log(`Next User ID: ${nextUserId}`);
+          const newUser = await new User({
+            name,
+            userId: nextUserId,
+            email,
+            password: hashedPassword,
+            phoneNumber,
+            otp: OTP,
+            isEmailVerified: false,
+          });
+          await newUser.save();
+          //SEND MAIL TO USER FOR EMAIL VERIFICATION
+          await sendMail(email, "EMail verification", body);
+          //remove otp after 2 min
+          setTimeout(async () => {
+            newUser.otp = -1
+            await newUser.save()
+          }, 200000)
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
 
       res.status(200).json({
         message: "User registerd successfully, kindly verify your mail",
@@ -82,6 +88,7 @@ module.exports = {
           .status(400)
           .json({ success: false, message: "Invalid verification code" });
       }
+      user.otp = -1;
       user.isEmailVerified = true;
       user.active = true;
       await user.save();

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const { upload } = require("../utils/s3");
+// const { upload } = require("../utils/upload");
 
 const {
   createPost,
@@ -17,7 +17,7 @@ const {
   removeSavedPost,
 } = require("../controllers/post");
 
-const {getStatitics} = require('../controllers/dashboard')
+const { getStatitics } = require('../controllers/dashboard')
 //isAdmin middleware
 const isAdmin = require("../middleware/auth")
 
@@ -33,6 +33,7 @@ router.post(
 //   { name: "images", maxCount: 5 },
 //   { name: "docs", maxCount: 5 },
 // ]),
+
 //GET POST
 router.get(
   "/singlePost",
@@ -50,10 +51,6 @@ router.put(
   "/edit",
   passport.authenticate("jwt", { session: false }),
   isAdmin,
-  upload.fields([
-    { name: "images", maxCount: 5 },
-    { name: "docs", maxCount: 5 },
-  ]),
   updatePost
 );
 
@@ -65,24 +62,24 @@ router.delete(
   deletePost
 );
 
-
 //related posts
-router.get("/related-post",relatedPost);
+router.get("/related-post", relatedPost);
 
 //save posts
 router.get("/save-post", passport.authenticate("jwt", { session: false }), savePost);
 
 //filter by catergory posts
-router.get("/filterByCategory",filterByCategory);
+router.get("/filterByCategory", filterByCategory);
 
 //get all the saved post for an user 
 router.get("/savedpost", passport.authenticate("jwt", { session: false }), getAllSavedPostForUser);
 
-//
+//remove saved post
 router.delete("/remove-saved-post", passport.authenticate("jwt", { session: false }),
   removeSavedPost);
-  
-router.get('/statistics',passport.authenticate("jwt", { session: false }),getStatitics)
+
+//get statistics of application
+router.get('/statistics', passport.authenticate("jwt", { session: false }), isAdmin, getStatitics)
 
 
 module.exports = router;

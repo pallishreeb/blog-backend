@@ -1,6 +1,6 @@
 <!-- @format -->
 
-## CrozTek Common Blog Application
+## Common Blog Application
 
 ## Services Provides
 
@@ -25,16 +25,20 @@ express
 mongoose
 bcryptjs
 jsonwebtoken
-aws-sdk
 multer
-multer-s3
 nodemailer
 passport
 passport-jwt
 cors
-nanoid
 morgan
 helmet
 hpp
 winston
 swagger-ui-express
+
+## Steps to run
+
+Clone the repo
+cd repo
+npm install
+npm start
